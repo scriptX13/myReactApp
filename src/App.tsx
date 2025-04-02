@@ -8,29 +8,75 @@ import Pages from './pages/Pages';
 import Profiles from './pages/Profiles';
 import TodoList from './pages/TodoList'; // Import the new page
 import LifecycleDemo from './components/LifecycleDemo'; // Import the new component
+import Login from './pages/Login';
+import Register from './pages/Register';
+import PrivateRoute from './components/PrivateRoute';
+import { AuthProvider } from './context/AuthContext'; // Import AuthProvider
+import AppInitializer from './components/AppInitializer'; // Import AppInitializer
 
 function App() {
   return (
     <Provider store={store}> {/* Wrap the app with Redux Provider */}
-      <Router
-        future={{
-          v7_startTransition: true, // Opt-in to React.startTransition wrapping
-          v7_relativeSplatPath: true, // Opt-in to relative splat path changes
-        }}
-      >
-        <ThemeProvider> {/* Wrap the app with ThemeProvider */}
-          <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/pages" element={<Pages />} />
-              <Route path="/profiles" element={<Profiles />} />
-              <Route path="/todo" element={<TodoList />} /> {/* Add the new route */}
-              <Route path="/lifecycle" element={<LifecycleDemo />} /> {/* Add the new route */}
-            </Routes>
-          </div>
-        </ThemeProvider>
-      </Router>
+      <AuthProvider> {/* Wrap the app with AuthProvider */}
+        <AppInitializer> {/* Wrap the app with AppInitializer */}
+          <Router
+            future={{
+              v7_startTransition: true, // Opt-in to React.startTransition wrapping
+              v7_relativeSplatPath: true, // Opt-in to relative splat path changes
+            }}
+          >
+            <ThemeProvider> {/* Wrap the app with ThemeProvider */}
+              <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+                <Navbar />
+                <Routes>
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route
+                    path="/"
+                    element={
+                      <PrivateRoute>
+                        <Home />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/pages"
+                    element={
+                      <PrivateRoute>
+                        <Pages />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/profiles"
+                    element={
+                      <PrivateRoute>
+                        <Profiles />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/todo"
+                    element={
+                      <PrivateRoute>
+                        <TodoList />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/lifecycle"
+                    element={
+                      <PrivateRoute>
+                        <LifecycleDemo />
+                      </PrivateRoute>
+                    }
+                  />
+                </Routes>
+              </div>
+            </ThemeProvider>
+          </Router>
+        </AppInitializer>
+      </AuthProvider>
     </Provider>
   );
 }

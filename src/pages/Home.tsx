@@ -5,6 +5,7 @@ import { RootState } from '../store';
 const Home = () => {
   const completedCount = useSelector((state: RootState) => state.tasks.completedCount);
   const incompleteCount = useSelector((state: RootState) => state.tasks.incompleteCount);
+  const loading = useSelector((state: RootState) => state.tasks.loading); // Get loading state
 
   return (
     <motion.div
@@ -48,12 +49,18 @@ const Home = () => {
             </div>
           </div>
           <div className="mt-8 p-4 bg-blue-100 dark:bg-blue-900 rounded-md">
-            <p className="text-lg text-gray-800 dark:text-gray-200">
-              Завершені завдання: <strong>{completedCount}</strong>
-            </p>
-            <p className="text-lg text-gray-800 dark:text-gray-200">
-              Незавершені завдання: <strong>{incompleteCount}</strong>
-            </p>
+            {loading ? (
+              <p className="text-lg text-gray-800 dark:text-gray-200">Завантаження...</p>
+            ) : (
+              <>
+                <p className="text-lg text-gray-800 dark:text-gray-200">
+                  Завершені завдання: <strong>{completedCount}</strong>
+                </p>
+                <p className="text-lg text-gray-800 dark:text-gray-200">
+                  Незавершені завдання: <strong>{incompleteCount}</strong>
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>

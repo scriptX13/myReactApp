@@ -1,28 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { db } from '../firebase';
-import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
-import { setTasks, addTask, toggleTaskCompletion, deleteTask } from '../store/taskSlice';
+import { addTask, toggleTaskCompletion, deleteTask } from '../store/taskSlice';
 
 const TodoList = () => {
   const [newTask, setNewTask] = useState<string>('');
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const dispatch = useDispatch();
   const tasksCollection = collection(db, 'tasks');
-
-  useEffect(() => {
-    const fetchTasks = async () => {
-      const taskSnapshot = await getDocs(tasksCollection);
-      const fetchedTasks = taskSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        name: doc.data().name || '',
-        completed: doc.data().completed || false,
-      }));
-      dispatch(setTasks(fetchedTasks));
-    };
-    fetchTasks();
-  }, [dispatch]);
 
   const handleAddTask = async () => {
     if (newTask.trim()) {
