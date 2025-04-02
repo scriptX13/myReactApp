@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Pages from './pages/Pages';
 import Profiles from './pages/Profiles';
 import TodoList from './pages/TodoList'; // Import the new page
+import LifecycleDemo from './components/LifecycleDemo'; // Import the new component
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/pages" element={<Pages />} />
               <Route path="/profiles" element={<Profiles />} />
               <Route path="/todo" element={<TodoList />} /> {/* Add the new route */}
+              <Route path="/lifecycle" element={<LifecycleDemo />} /> {/* Add the new route */}
             </Routes>
           </div>
         </ThemeProvider>
