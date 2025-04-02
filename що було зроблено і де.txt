@@ -1,0 +1,50 @@
+1. High Overload Component
+High Overload Component — це компонент, який виконує багато функцій або має складну логіку. У вашому проєкті таким компонентом є TodoList.
+
+Де використовується:
+Файл: c:\Users\KH-21\Desktop\project\src\pages\TodoList.tsx
+Що робить:
+Завантажує завдання з Firestore (getDocs).
+Додає нові завдання (addDoc).
+Оновлює статус виконання завдань (updateDoc).
+Видаляє завдання (deleteDoc).
+Використовує Redux для управління станом завдань (setTasks, addTask, toggleTaskCompletion, deleteTask).
+2. Redux
+Redux використовується для глобального управління станом, зокрема для теми та завдань.
+
+Де використовується:
+Файл: c:\Users\KH-21\Desktop\project\src\store\themeSlice.ts
+Управляє станом теми (theme) і дозволяє перемикати між світлою та темною темами.
+Файл: c:\Users\KH-21\Desktop\project\src\store\taskSlice.ts
+Управляє списком завдань (tasks) і статистикою (кількість завершених і незавершених завдань).
+Файл: c:\Users\KH-21\Desktop\project\src\store\index.ts
+Об'єднує ред'юсери (themeReducer і taskReducer) у глобальний Redux Store.
+Файл: c:\Users\KH-21\Desktop\project\src\App.tsx
+Обгортає додаток у Provider, щоб надати доступ до Redux Store.
+3. localStorage
+localStorage використовується для збереження стану теми та списку завдань, щоб дані зберігалися між перезавантаженнями сторінки.
+
+Де використовується:
+Файл: c:\Users\KH-21\Desktop\project\src\store\themeSlice.ts
+Зберігає стан теми (theme) у localStorage.
+Завантажує стан теми з localStorage при ініціалізації.
+Файл: c:\Users\KH-21\Desktop\project\src\store\taskSlice.ts
+Зберігає список завдань (tasks) у localStorage.
+Завантажує список завдань з localStorage при ініціалізації.
+4. Context
+React Context використовується для управління темою (альтернатива Redux для теми).
+
+Де використовується:
+Файл: c:\Users\KH-21\Desktop\project\src\context\ThemeContext.tsx
+Створює ThemeContext для управління темою.
+Надає theme і toggleTheme через ThemeProvider.
+Файл: c:\Users\KH-21\Desktop\project\src\App.tsx
+Обгортає додаток у ThemeProvider, щоб надати доступ до ThemeContext.
+Файл: c:\Users\KH-21\Desktop\project\src\components\Navbar.tsx
+Використовує useSelector (Redux) для теми, але раніше використовував useTheme з ThemeContext.
+Підсумок
+High Overload Component: TodoList (TodoList.tsx).
+Redux: Використовується для управління темою (themeSlice.ts) і завданнями (taskSlice.ts).
+localStorage: Використовується для збереження стану теми та списку завдань.
+Context: Використовується для управління темою через ThemeContext.
+Ви використовуєте всі ці технології в різних частинах проєкту, що робить ваш додаток добре структурованим і функціональним. Якщо потрібно щось уточнити або змінити, дайте знати!
